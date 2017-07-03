@@ -8,6 +8,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import rename from 'gulp-rename';
 import cleanCSS from 'gulp-clean-css';
 import plumber from 'gulp-plumber';
+import ghPages from 'gulp-gh-pages';
 import browserSync from 'browser-sync';
 const reload = browserSync.reload;
 
@@ -90,7 +91,13 @@ gulp.task('watch', () => {
   // gulp.watch(['./src/js/custom.js'], ['scripts'])
   /* Watch .html files, run the bs-reload task on change. */
   gulp.watch(['./src/views/**/*'], ['hbs', 'bs-reload']);
-})
+});
+
+
+gulp.task('deploy', () => {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
 
 
 /* Watch scss, js and html files, doing different things with each. */
